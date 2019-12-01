@@ -65,6 +65,18 @@ class SocketQuiz():
         print("------------------------------------------------------" + "\n" 
             + "\t\t Conexoes existentes \t\t\n" + list_conn)
 
+    def send_jogador_question(self, jogador, question):
+        conn = jogador.get_connection()
+        try:
+            conn.send(str.encode("#question" + question))
+            byte_expected = self.utf8len('A')
+            answer = conn.recv(byte_expected)
+            while answer == None:
+                answer = conn.recv(byte_expected)
+            return str(answer)[2]
+        except socket.error as msg:
+            print("Não foi possível enviar a mensagem para a conexão: " + str(conn) + str(msg))
+
     def send_waiting_message(self, conn):
         length_conn = len(self.connections)
         self.send_message(conn, "#info Aguardando um adversário para você. Em instantes o Quiz será iniciado!")
@@ -74,10 +86,21 @@ class SocketQuiz():
             
     def send_message(self, conn, message):
         try:
+            length_recv = self.utf8len("ok")
             conn.send(str.encode(message))
-            conn.recv(20480)
+            answer = conn.recv(length_recv)
+            while answer == None:
+                answer = conn.recv(length_recv)
         except:
-            print("Não foi possível enviar a mensagem para a conexão: " + str(conn))
+            print("Não foi possível enviar a mensagem para a conexão: " + str(conn) + str(message))
+    
+    def send_final_message(self, conn, message):
+        try:
+            length_recv = self.utf8len("ok")
+            conn.send(str.encode(message))
+            conn.recv(length_recv)
+        except:
+            print("Não foi possível enviar a mensagem para a conexão: " + str(conn) + str(message))
 
     def get_connected_client_by_id(self, id):
         try:
@@ -91,3 +114,6 @@ class SocketQuiz():
     
     def get_address(self):
         return self.address
+    
+    def utf8len(self, s):
+        return len(s.encode('utf-8'))
