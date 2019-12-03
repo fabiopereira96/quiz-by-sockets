@@ -4,17 +4,17 @@ class Quiz():
         self.current_question = -1
         self.questions = [
                 ['Dentre os itens abaixo, qual não corresponde a uma diferença entre UDP e TCP?\n',
-                    ['A) Orientação a conexão\n',
-                        'B) Garantia de entrega\n',
-                        'C) Garantia de ordenação de pacotes\n',
-                        'D) Usa segmentação de pacotes'],
+                    ['A) Orientação a conexão\n' +
+                     'B) Garantia de entrega\n' + 
+                     'C) Garantia de ordenação de pacotes\n' +
+                     'D) Usa segmentação de pacotes'],
                     100,
                     'D'],
                 ['Dentre os itens abaixo, qual é o principal motivo para a migração de IPv4 para IPv6?\n',
-                    ['A) Performance da comunicação\n',
-                        'B) IPv6 tem garantia de entrega de pacotes\n',
-                        'C) Proximidade do limite de endereços possíveis com o IPv4\n',
-                        'D) IPv6 tem uma verificação de erros de pacotes não disponível no IPv4'],
+                    ['A) Performance da comunicação\n' + 
+                     'B) IPv6 tem garantia de entrega de pacotes\n' + 
+                     'C) Proximidade do limite de endereços possíveis com o IPv4\n' +
+                     'D) IPv6 tem uma verificação de erros de pacotes não disponível no IPv4'],
                     150,
                     'C']]
     
